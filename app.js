@@ -56,7 +56,27 @@ angular.module('app', [])
                     });
 
                 });
+                scope.snapshots= [];
+                scope.addMarker= function(){
+                    new google.maps.Marker({
+                        position: new google.maps.LatLng(scope.center.lat, scope.center.lng),
+                        map: map,
+                        title: scope.markerLabel
+                    });
+                    scope.snapshots.push({
+                        lat :  scope.center.lat,
+                        lng :  scope.center.lng,
+                        zoom :  scope.zoom,
+                        label :  scope.markerLabel
+                    });
+                    scope.markerLabel = '';
+                };
 
+                scope.goto = function(snapshot){
+                    scope.center.lat = snapshot.lat;
+                    scope.center.lng = snapshot.lng;
+                    scope.zoom = snapshot.zoom;
+                }
             }
         };
     });
