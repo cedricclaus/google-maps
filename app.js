@@ -11,7 +11,9 @@ angular.module('app', [])
 
     .directive('gmaps', function () {
         return {
-            restrict: 'A',
+            restrict: 'EA',
+            template : '<div class="gmaps"></div>',
+            replace: true,
             scope: {
                 center : '=',
                 zoom : '='
@@ -34,6 +36,25 @@ angular.module('app', [])
                 scope.$watch('center',function(newValue, oldValue){
                     map.setCenter( newValue);
                 },true);
+
+
+                google.maps.event.addListener(map, 'zoom_changed', function () {
+                    if(scope.zoom != map.getZoom()){
+                        scope.$apply(function(){
+                            scope.zoom = map.getZoom();
+                        });
+                    }
+
+
+                });
+                google.maps.event.addListener(map, 'center_changed', function () {
+
+                    scope.$applyAsync(function(){
+                        scope.center.lat=  map.getCenter().lat();
+                        scope.center.lng=  map.getCenter().lng();
+                    });
+
+                });
 
             }
         };
