@@ -15,7 +15,14 @@ angular.module('app', [])
             scope: false,
             link: function (scope, element, attrs) {
 
-                // TODO
+                var mapOptions = {
+                    center: { lat: -34.397, lng: 150.644},
+                    zoom: 8
+                };
+                var currentElement = element[0];
+                var map = new google.maps.Map(currentElement,
+                    mapOptions);
+                element.addClass('gmaps');
 
             }
         };
