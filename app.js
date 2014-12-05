@@ -4,22 +4,23 @@ angular.module('app', [])
 
     .controller('Ctrl', function($scope) {
         $scope.maps = [
-            { center: {lat: 47.211, lng: -1.566}, zoom: 12 },
-            { center: {lat: 37.423, lng: -122.086}, zoom: 9 }
+            { label:'legende1' , center: {lat: 47.211, lng: -1.566}, zoom: 12 },
+            { label:'legende1' , center: {lat: 37.423, lng: -122.086}, zoom: 9 }
         ];
     })
 
     .directive('gmaps', function () {
         return {
             restrict: 'EA',
-            template : '<div class="gmaps"></div>',
-            replace: true,
+            transclude : true,
+            template : '<div class="gmaps"></div><legend ng-transclude></legend> ',
+            replace: false,
             scope: {
                 center : '=',
                 zoom : '='
             },
             link: function (scope, element, attrs) {
-                element.addClass('gmaps');
+                //element.addClass('gmaps');
 
                 var currentElement = element[0];
 
@@ -27,7 +28,7 @@ angular.module('app', [])
                     center: { lat: scope.center.lat, lng: scope.center.lng},
                     zoom: scope.zoom
                 };
-                var map = new google.maps.Map(currentElement,
+                var map = new google.maps.Map(element.find('div')[0],
                     mapOptions);
 
                 scope.$watch('zoom',function(newValue, oldValue){

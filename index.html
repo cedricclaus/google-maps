@@ -11,7 +11,10 @@
   
   <div class="repeat" ng-repeat="map in maps">
     
-    <div gmaps center="map.center" zoom="map.zoom"></div>
+    <gmaps center="map.center" zoom="map.zoom">
+      carte de {{map.label}}
+
+    </gmaps>
 
     <div class="data">
       <p>
