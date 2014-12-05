@@ -12,18 +12,25 @@ angular.module('app', [])
     .directive('gmaps', function () {
         return {
             restrict: 'A',
-            scope: false,
+            scope: {
+                center : '=',
+                zoom : '='
+            },
             link: function (scope, element, attrs) {
-
-                var mapOptions = {
-                    center: { lat: -34.397, lng: 150.644},
-                    zoom: 8
-                };
-                var currentElement = element[0];
-                var map = new google.maps.Map(currentElement,
-                    mapOptions);
                 element.addClass('gmaps');
 
+                var currentElement = element[0];
+
+                var mapOptions = {
+                    center: { lat: scope.center.lat, lng: scope.center.lng},
+                    zoom: scope.zoom
+                };
+                var map = new google.maps.Map(currentElement,
+                    mapOptions);
+
+                scope.$watch('zoom',function(newValue, oldValue){
+                        map.setZoom( newValue);
+                });
             }
         };
     });
