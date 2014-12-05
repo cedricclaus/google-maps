@@ -5,7 +5,7 @@ angular.module('app', [])
     .controller('Ctrl', function($scope) {
         $scope.maps = [
             { label:'legende1' , center: {lat: 47.211, lng: -1.566}, zoom: 12 },
-            { label:'legende1' , center: {lat: 37.423, lng: -122.086}, zoom: 9 }
+            { label:'legende2' , center: {lat: 37.423, lng: -122.086}, zoom: 9 }
         ];
     })
 
@@ -13,7 +13,7 @@ angular.module('app', [])
         return {
             restrict: 'EA',
             transclude : true,
-            template : '<div class="gmaps"></div><legend ng-transclude></legend> ',
+            templateUrl : 'gmaps.html',
             replace: false,
             scope: {
                 center : '=',
