@@ -31,6 +31,10 @@ angular.module('app', [])
                 scope.$watch('zoom',function(newValue, oldValue){
                         map.setZoom( newValue);
                 });
+                scope.$watch('center',function(newValue, oldValue){
+                    map.setCenter( newValue);
+                },true);
+
             }
         };
     });
